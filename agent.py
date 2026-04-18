@@ -1,7 +1,6 @@
 import os
 from datetime import datetime
 from dotenv import load_dotenv
-from serpapi import GoogleSearch
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.prebuilt import create_react_agent
@@ -31,24 +30,29 @@ def get_history(session_id: str):
 # SEARCH TOOL
 def serpapi_search(query: str):
     """Search the internet using SerpAPI and return top results."""
-    params = {
-        "q": query,
-        "hl": "en",
-        "gl": "us",
-        "api_key": os.getenv("SERP_API_KEY")
-    }
-    search = GoogleSearch(params)
-    results = search.get_dict()
-    if "organic_results" in results:
-        return [
-            {
-                "title": r["title"],
-                "link": r["link"],
-                "snippet": r.get("snippet", "")
-            }
-            for r in results["organic_results"][:5]
-        ]
-    return {"error": "No results found"}
+    try:
+        import requests
+        url = "https://serpapi.com/search"
+        params = {
+            "q": query,
+            "hl": "en",
+            "gl": "us",
+            "api_key": os.getenv("SERP_API_KEY")
+        }
+        response = requests.get(url, params=params)
+        results = response.json()
+        if "organic_results" in results:
+            return [
+                {
+                    "title": r["title"],
+                    "link": r["link"],
+                    "snippet": r.get("snippet", "")
+                }
+                for r in results["organic_results"][:5]
+            ]
+        return {"error": "No results found"}
+    except Exception as e:
+        return {"error": str(e)}
 
 # LLM SETUP
 llm = ChatGoogleGenerativeAI(
