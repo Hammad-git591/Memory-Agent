@@ -1,0 +1,8 @@
+streamlit
+python-dotenv
+pymongo
+serpapi
+google-search-results
+langchain-google-genai
+langgraph
+langchain-core
