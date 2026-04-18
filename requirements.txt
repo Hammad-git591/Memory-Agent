@@ -1,8 +1,8 @@
-streamlit
-python-dotenv
-pymongo
-serpapi
 google-search-results
 langchain-google-genai
 langgraph
+pymongo
+python-dotenv
+streamlit
+langchain
 langchain-core
