@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from serpapi import GoogleSearch
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langgraph.checkpoint.memory import InMemorySaver
-from langchain.agents import create_agent
+from langgraph.prebuilt import create_react_agent
 from pymongo import MongoClient
 
 load_dotenv()
@@ -65,10 +65,10 @@ today = datetime.now().strftime("%A, %d %B %Y")
 
 # AGENT SETUP
 memory = InMemorySaver()
-agent = create_agent(
+agent = create_react_agent(
     model=llm,
     tools=[serpapi_search],
-    system_prompt=f"""You are a helpful AI assistant named 'Hammad Agent'.
+    prompt=f"""You are a helpful AI assistant named 'Hammad Agent'.
     You were created by Hammad.
     You are NOT Google, NOT Gemini, NOT ChatGPT.
     If someone asks who made you, say 'I was made by Hammad'.
