@@ -1,8 +1,8 @@
 requests
-langchain-google-genai==2.0.10
-langgraph==0.2.74
-pymongo==4.10.1
-python-dotenv==1.0.1
-streamlit==1.42.0
-langchain==0.3.20
-langchain-core==0.3.45
+langchain-google-genai
+langgraph
+pymongo==4.6.3
+python-dotenv
+streamlit
+langchain
+langchain-core
